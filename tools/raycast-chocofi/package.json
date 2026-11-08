@@ -1,0 +1,41 @@
+{
+  "$schema": "https://www.raycast.com/schemas/extension.json",
+  "name": "chocofi-keys",
+  "title": "Chocofi Keys",
+  "description": "Look up how to press any key or shortcut on the handwired Chocofi: a drawing of the board plus the press sequence.",
+  "icon": "icon.png",
+  "author": "siah",
+  "license": "MIT",
+  "categories": [
+    "Productivity"
+  ],
+  "commands": [
+    {
+      "name": "choc",
+      "title": "Chocofi Key",
+      "subtitle": "choc",
+      "description": "Type a key or shortcut, e.g. cmd alt e, _, ctrl c, alt left.",
+      "mode": "view",
+      "arguments": [
+        {
+          "name": "query",
+          "placeholder": "cmd alt e",
+          "type": "text",
+          "required": false
+        }
+      ]
+    }
+  ],
+  "scripts": {
+    "build": "ray build -e dist",
+    "dev": "ray develop"
+  },
+  "dependencies": {
+    "@raycast/api": "^2.11.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "typescript": "^7.0.2"
+  }
+}
