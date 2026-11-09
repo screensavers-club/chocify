@@ -1,6 +1,7 @@
 // Chocofi handwired: default keymap (QWERTY + 3 layers). Left outer thumb is Cmd (GUI).
 // Hold both layer thumbs (SYM + NAV) to reach the ADJUST layer with QK_BOOT.
 #include QMK_KEYBOARD_H
+#include "raw_hid.h"
 
 enum layers { BASE, SYM, NAV, ADJUST, MOUSE };
 
@@ -57,4 +58,28 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, SYM, NAV, ADJUST);
+}
+
+// ---- State reporting for the Mac HUD (tools/chocofi-hud) ----
+// Over raw HID (usage page 0xFF60, usage 0x61) the left half sends a 32-byte report whenever
+// the active layer, armed one-shot mods, held mods or Caps Lock change:
+//   [0] 0xC0 marker  [1] highest active layer  [2] one-shot mods  [3] held mods  [4] Caps Lock
+// The HUD sends a report starting with 0xC0 to ask for the current state. Reports are 32 bytes on AVR.
+static uint8_t last_state[4] = {0xFF, 0xFF, 0xFF, 0xFF};
+static bool    state_requested = false;
+
+void housekeeping_task_user(void) {
+    if (!is_keyboard_master()) return;
+    uint8_t now[4] = {get_highest_layer(layer_state), get_oneshot_mods(), get_mods(), host_keyboard_led_state().caps_lock};
+    if (!state_requested && memcmp(now, last_state, sizeof now) == 0) return;
+    memcpy(last_state, now, sizeof now);
+    state_requested = false;
+    uint8_t report[32] = {0};
+    report[0] = 0xC0;
+    memcpy(report + 1, now, sizeof now);
+    raw_hid_send(report, 32);
+}
+
+void raw_hid_receive(uint8_t *data, uint8_t length) {
+    if (length > 0 && data[0] == 0xC0) state_requested = true;
 }

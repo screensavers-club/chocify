@@ -13,7 +13,8 @@
         "bootmagic": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "raw": true
     },
     "build": {
         "lto": true
