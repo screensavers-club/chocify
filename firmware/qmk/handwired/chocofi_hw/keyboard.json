@@ -14,6 +14,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
+        "os_detection": true,
         "raw": true
     },
     "build": {

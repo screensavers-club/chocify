@@ -31,7 +31,7 @@ export const LAYERS: Record<string, Key[]> = {
     null, null, null, null, null, null,
   ],
   ADJUST: [
-    k("Boot", "boot", "flash"), none, none, none, none, none, none, none, none, k("Boot", "boot", "flash"),
+    k("Boot", "boot", "flash"), none, none, none, none, none, none, k("iPad", "ipad signals", "toggle ipad"), none, k("Boot", "boot", "flash"),
     k("F11", "f11"), k("F12", "f12"), none, none, none,
     k("Prev", "prev"), k("Vol−", "vol-"), k("Vol+", "vol+"), k("Next", "next"), k("Play", "play"),
     none, none, none, none, none, none, k("Mute", "mute"), none, none, none,

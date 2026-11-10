@@ -1,0 +1,36 @@
+name: ChocofiCode
+options:
+  bundleIdPrefix: studio.screensavers
+  deploymentTarget:
+    iOS: "17.0"
+settings:
+  base:
+    DEVELOPMENT_TEAM: D334JZBH4L
+    CODE_SIGN_STYLE: Automatic
+    SWIFT_VERSION: "5.0"
+    TARGETED_DEVICE_FAMILY: "2"
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+targets:
+  ChocofiCode:
+    type: application
+    platform: iOS
+    sources:
+      - Sources
+      - path: ../Sources/Snippets.swift
+      - path: ../Sources/Hints.swift
+      - path: ../Sources/Stats.swift
+      - path: ../Sources/FolderSource.swift
+      - path: ../Sources/Syntax.swift
+      - path: ../../chocofi-hud/Sources/Keymap.swift
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: studio.screensavers.chocofi-code
+        PRODUCT_NAME: Chocofi Code
+        INFOPLIST_FILE: Info.plist
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Chocofi Code
+        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown"
+        INFOPLIST_KEY_UIRequiresFullScreen: NO
